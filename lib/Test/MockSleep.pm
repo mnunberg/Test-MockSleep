@@ -17,7 +17,7 @@ sub mock_sleep (;@) {
     $seconds ||= 0;
     $Slept += $seconds;
     if($have_mock_time && $use_mock_time) {
-        Test::MockTime::set_relative_time($seconds);
+        Test::MockTime::set_absolute_time(time() + $seconds);
     }
 }
 
@@ -178,6 +178,7 @@ aliased to Time::HiRes' sleep, at the time of import).
 If you wish to have your clocked advanced as well, and the module
 L<Test::MockTime> is installed, you can do
 
+    use Test::MockTime;
     use Test::MockSleep qw(:with_mocktime);
     
 =head2 FINALLY GOING TO BED
