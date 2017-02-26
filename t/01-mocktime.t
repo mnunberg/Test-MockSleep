@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::MockTime;
 use Test::MockSleep qw(:with_mocktime);
 
 my $have_mock_time = eval 'use Test::MockTime qw(:all); 1;';
@@ -14,5 +15,10 @@ my $begin = time();
 sleep(5);
 my $now = time();
 ok($now - $begin >= 4, "MockTime changes time ($begin to $now)");
+
+sleep(5);
+my $now2 = time();
+ok($now2 - $begin >= 8,
+    "MockTime changes time after second sleep ($begin to $now2)");
 
 done_testing();
